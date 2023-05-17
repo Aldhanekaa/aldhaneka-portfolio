@@ -166,15 +166,15 @@ export interface Database {
         Row: {
           category: string;
           desc: string | null;
-          parent: string;
+          parent?: string;
           relation_name: string;
           tag: string | null;
           tags: string[];
         };
         Insert: {
-          category: string;
+          category?: string | null;
           desc?: string | null;
-          parent: string;
+          parent?: string;
           relation_name: string;
           tag?: string | null;
           tags: string[];
