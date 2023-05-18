@@ -6,11 +6,18 @@ export type CertificatesT = {
   title: string;
 };
 
+export type MinimalJournalT = {
+  id: string;
+  title: string;
+  desc: string;
+  created_at: string;
+};
 export type JournalT = {
   category: string;
-  content: Json;
+  content: string;
   created_at: string;
   desc: string;
+  home_pin: boolean;
   id: string;
   related_projects: Json[] | null;
   tags: string[] | null;
@@ -110,6 +117,7 @@ export interface Database {
           content: string;
           created_at: string;
           desc: string;
+          home_pin: boolean;
           id: string;
           related_projects: Json[] | null;
           tags: string[] | null;
@@ -121,6 +129,7 @@ export interface Database {
           content: string;
           created_at?: string;
           desc: string;
+          home_pin?: boolean;
           id: string;
           related_projects?: Json[] | null;
           tags?: string[] | null;
@@ -132,6 +141,7 @@ export interface Database {
           content?: string;
           created_at?: string;
           desc?: string;
+          home_pin?: boolean;
           id?: string;
           related_projects?: Json[] | null;
           tags?: string[] | null;

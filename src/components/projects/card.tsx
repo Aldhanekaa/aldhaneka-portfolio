@@ -10,7 +10,11 @@ export default function ProjectCard({ project }: { project: ProjectT }) {
   return (
     <div className=" col-span-3 bg-brand-150 rounded-3xl">
       <div className="w-full relative rounded-3xl overflow-hidden border-brand-350 border-2">
-        <img className="w-full" src={project.thumbnail}></img>
+        {project.thumbnail ? (
+          <img className="w-full" src={project.thumbnail}></img>
+        ) : (
+          <div className="w-full h-32">Loading Thumbnail...</div>
+        )}
         <div
           className={`w-full h-full ${
             viewDesc ? 'bg-brand-350' : 'bg-transparent'

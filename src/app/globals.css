@@ -19,10 +19,37 @@
     @apply text-xl;
     font-weight: semi-bold;
   }
+
+  .container_px {
+    @apply px-7;
+    @apply md:px-20;
+    @apply lg:px-32;
+  }
+
+  .discover_project_card_main_default {
+    background: linear-gradient(
+      282.24deg,
+      #d6cab6 -17.87%,
+      #a8987b 15.26%,
+      #a8987b 74%,
+      #d6cab6 101.5%
+    );
+  }
+
+  .discover_project_card_main_clicked {
+    background: linear-gradient(
+      321.69deg,
+      #f6e7cc -4.32%,
+      #d6cab6 26.77%,
+      #d6cab6 60.69%,
+      #f5e6cb 97.07%
+    );
+  }
 }
 
 body {
   background: #fffdf9;
+  overflow-x: hidden;
 }
 
 @font-face {
