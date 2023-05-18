@@ -117,59 +117,62 @@ export interface Database {
       projects: {
         Row: {
           category: string
-          completed: string
+          completed_at: string
           desc: string
-          id: number
+          id: string
           links: Json | null
-          medias: Json
+          medias: Json | null
+          started_at: string | null
           tags: string[]
-          thumbnail: string
+          thumbnail: string | null
           title: string
         }
         Insert: {
           category?: string
-          completed: string
+          completed_at: string
           desc: string
-          id?: number
+          id: string
           links?: Json | null
-          medias: Json
+          medias?: Json | null
+          started_at?: string | null
           tags: string[]
-          thumbnail: string
+          thumbnail?: string | null
           title: string
         }
         Update: {
           category?: string
-          completed?: string
+          completed_at?: string
           desc?: string
-          id?: number
+          id?: string
           links?: Json | null
-          medias?: Json
+          medias?: Json | null
+          started_at?: string | null
           tags?: string[]
-          thumbnail?: string
+          thumbnail?: string | null
           title?: string
         }
       }
       projects_relations: {
         Row: {
-          category: string
+          category: string | null
           desc: string | null
-          parent: string
+          parent: string | null
           relation_name: string
           tag: string | null
           tags: string[]
         }
         Insert: {
-          category: string
+          category?: string | null
           desc?: string | null
-          parent: string
+          parent?: string | null
           relation_name: string
           tag?: string | null
           tags: string[]
         }
         Update: {
-          category?: string
+          category?: string | null
           desc?: string | null
-          parent?: string
+          parent?: string | null
           relation_name?: string
           tag?: string | null
           tags?: string[]

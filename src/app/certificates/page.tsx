@@ -23,8 +23,11 @@ export default async function CertificatesPage() {
 
       <div className="w-full mt-20 grid grid-cols-3 md:grid-cols-6 lg:grid-cols-9 px-10 gap-10">
         {certificates.error == null &&
-          certificates.data.map((certificate) => (
-            <CertificationCard {...certificate} />
+          certificates.data.map((certificate, i) => (
+            <CertificationCard
+              key={`${certificate.id}_${i}`}
+              {...certificate}
+            />
           ))}
       </div>
     </div>

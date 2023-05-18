@@ -6,6 +6,25 @@ export type CertificatesT = {
   title: string;
 };
 
+export type ProjectT = {
+  category: string;
+  completed_at: string;
+  desc: string;
+  id: string;
+  links: Json;
+  medias: Json;
+  started_at: string | null;
+  tags: string[];
+  thumbnail: string | null;
+  title: string;
+};
+export type ProjectMediaBasicT = {
+  type: 'iFrame' | 'Image';
+  name: string;
+  url: string; // url for the iframe or the image
+};
+export type ProjectMediasT = {};
+
 export type CategoryT = { category_name: string };
 export type TagT = { tag_name: string };
 export type RowsT =
@@ -130,43 +149,46 @@ export interface Database {
       projects: {
         Row: {
           category: string;
-          completed: string;
+          completed_at: string;
           desc: string;
-          id: number;
+          id: string;
           links: Json | null;
-          medias: Json;
+          medias: Json | null;
+          started_at: string | null;
           tags: string[];
-          thumbnail: string;
+          thumbnail: string | null;
           title: string;
         };
         Insert: {
           category?: string;
-          completed: string;
+          completed_at: string;
           desc: string;
-          id?: number;
+          id: string;
           links?: Json | null;
-          medias: Json;
+          medias?: Json | null;
+          started_at?: string | null;
           tags: string[];
-          thumbnail: string;
+          thumbnail?: string | null;
           title: string;
         };
         Update: {
           category?: string;
-          completed?: string;
+          completed_at?: string;
           desc?: string;
-          id?: number;
+          id?: string;
           links?: Json | null;
-          medias?: Json;
+          medias?: Json | null;
+          started_at?: string | null;
           tags?: string[];
-          thumbnail?: string;
+          thumbnail?: string | null;
           title?: string;
         };
       };
       projects_relations: {
         Row: {
-          category: string;
+          category: string | null;
           desc: string | null;
-          parent?: string;
+          parent: string | null;
           relation_name: string;
           tag: string | null;
           tags: string[];
@@ -174,15 +196,15 @@ export interface Database {
         Insert: {
           category?: string | null;
           desc?: string | null;
-          parent?: string;
+          parent?: string | null;
           relation_name: string;
           tag?: string | null;
           tags: string[];
         };
         Update: {
-          category?: string;
+          category?: string | null;
           desc?: string | null;
-          parent?: string;
+          parent?: string | null;
           relation_name?: string;
           tag?: string | null;
           tags?: string[];

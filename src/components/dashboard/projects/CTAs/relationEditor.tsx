@@ -75,7 +75,7 @@ export default function RelationEditor({
     initialValues: initVal,
     validationSchema: validationSchema,
     async onSubmit(values, formikHelpers) {
-      console.log(values);
+      // console.log(values);
 
       if (
         values.groupFamily &&
@@ -100,6 +100,7 @@ export default function RelationEditor({
               ...structure,
               desc: values.desc,
               tags: values.selectedTags.map((tag) => tag.name),
+              parent: values.parent?.name,
             },
           ]);
 

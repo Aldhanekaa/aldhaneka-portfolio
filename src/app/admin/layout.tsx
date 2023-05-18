@@ -50,7 +50,7 @@ export default function AdminLayout({
         <nav className="col-span-1 row-span-4 mt-5">
           <div>
             {sidebars.map((sidebar, i) => (
-              <SidebarLink i={i} {...sidebar} />
+              <SidebarLink key={`${sidebar.name}_${i}`} i={i} {...sidebar} />
             ))}
           </div>
         </nav>

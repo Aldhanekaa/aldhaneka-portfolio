@@ -28,7 +28,7 @@ const NewCertificateValidation = Yup.object().shape({
     .max(50, 'Too Long!')
     .required('Required'),
   desc: Yup.string().min(5, 'Too Short!').required('Required'),
-  imageSize: Yup.number().max(1024 * 1024, ''),
+  imageSize: Yup.number().max(1024 * 1024, 'Max File Size'),
   fileName: Yup.string().min(5, 'Too Short!').required('Required!'),
   received_at: Yup.string().required('Required!'),
 });
@@ -140,7 +140,7 @@ export default function CertificatesEditor({
     }
   };
 
-  console.log(formik.errors);
+  // console.log(formik.errors);
 
   return (
     <div>

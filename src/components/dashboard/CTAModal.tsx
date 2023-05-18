@@ -13,7 +13,7 @@ export default function CTAModal({
     <div
       className={`${
         isModalShown ? 'block' : 'hidden'
-      } w-full absolute top-0 left-0 h-full`}
+      } w-full absolute top-0 z-20 left-0 h-full`}
     >
       <div className="relative w-full h-full ">
         <div className="relative w-full h-full rounded-2xl bg-brand-350 opacity-75"></div>

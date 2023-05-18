@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export async function middleware(req: NextRequest) {
-  console.log('MIDDLE WARE!');
+  // console.log('MIDDLE WARE!');
 
   const res = NextResponse.next();
   const supabase = createMiddlewareSupabaseClient<Database>(
@@ -32,7 +32,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith('/admin')) {
     if (user) {
-      console.log(session.data.session?.user);
+      // console.log(session.data.session?.user);
       if (user.email && valid_email?.includes(user.email)) {
         return res;
       } else {

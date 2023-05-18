@@ -71,7 +71,6 @@ export default function CertificatesDashboard({
     }
   }
 
-  console.log(certificates);
   return (
     <div className="mt-10 grid grid-cols-3 gap-10 md:grid-cols-6 lg:grid-cols-9">
       {certificates.error == null &&

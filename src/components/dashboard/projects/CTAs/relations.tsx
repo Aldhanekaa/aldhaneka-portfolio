@@ -121,8 +121,11 @@ export default function ProjectRelations() {
       </div>
 
       <div className="w-full max-h-44 mt-16">
-        {relations.map((relation) => (
-          <div className="text-xl flex justify-between cursor-pointer bg-brand-100 px-4 py-3 rounded-lg">
+        {relations.map((relation, i) => (
+          <div
+            key={i}
+            className="text-xl flex justify-between cursor-pointer bg-brand-100 px-4 py-3 rounded-lg"
+          >
             <div>{relation.name}</div>
             <div
               className="text-red-600 cursor-pointer"
