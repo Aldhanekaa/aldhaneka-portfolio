@@ -51,7 +51,7 @@ export default function Footer() {
           <div className="col-span-7 lg:col-span-2 break-words">
             <FooterHeading>Contact</FooterHeading>
             <ul className="mt-8">
-              <FooterLink href="#">aldhaneka[at]@gmail.com</FooterLink>
+              <FooterLink href="#">aldhaneka[at]gmail.com</FooterLink>
             </ul>
           </div>{' '}
         </div>

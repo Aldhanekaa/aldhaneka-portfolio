@@ -166,6 +166,7 @@ export default function ProjectEditor({
           }
           // console.log(values.thumbnail);
 
+          console.log('mediasReady', mediasReady);
           const response = await UploadProject({
             projectId: projectId,
             thumbnailFile: thumbnailFile,
@@ -188,6 +189,7 @@ export default function ProjectEditor({
   });
 
   const saveMedia = (medias: Array<EditorMediasT>) => {
+    console.log('SET', medias);
     setMedias(medias);
     formik.setFieldValue('saveMedia', true);
   };
@@ -197,6 +199,8 @@ export default function ProjectEditor({
       formik.setFieldValue('saveMedia', false);
     }
   };
+
+  console.log(formik.values);
 
   return (
     <div>
@@ -310,6 +314,8 @@ export default function ProjectEditor({
           saveMedia={saveMedia}
           setMediaNotSaved={setMediaNotSaved}
           saveMediaError={formik.errors.saveMedia}
+          // @ts-ignore
+          mediasProps={projectProps?.medias}
         />
         <EditorThumbnail
           thumbnailSrc={formik.values.thumbnail}

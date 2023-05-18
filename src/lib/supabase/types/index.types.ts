@@ -37,6 +37,14 @@ export type ProjectT = {
   thumbnail: string | null;
   title: string;
 };
+export type ProjectRelationT = {
+  category: string | null;
+  desc: string | null;
+  parent: string | null;
+  relation_name: string;
+  tag: string | null;
+  tags: string[];
+};
 export type ProjectMediaBasicT = {
   type: 'iFrame' | 'Image';
   name: string;

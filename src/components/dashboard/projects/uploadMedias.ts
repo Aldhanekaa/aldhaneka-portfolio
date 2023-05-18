@@ -28,10 +28,11 @@ export async function UploadMedias({
 
   let ReturnedMedias: MediasT[] = [];
 
+  console.log('medias', medias);
   for (let i = 0; i < medias.length; i++) {
     let media = medias[i];
 
-    // console.log(media, previousMediasObj[media.id]);
+    console.log(media, previousMediasObj[media.id]);
 
     if (media.type == 'image' && media.file) {
       const uploadName = `${projectId}/${media.file.name}`;
@@ -86,7 +87,7 @@ export async function UploadMedias({
     }
   }
 
-  //   console.log(ReturnedMedias);
+  console.log(ReturnedMedias);
 
   return ReturnedMedias;
 }

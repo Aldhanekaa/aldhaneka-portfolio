@@ -99,7 +99,7 @@ export default function RelationEditor({
               relation_name: values.groupFamily.name,
               ...structure,
               desc: values.desc,
-              tags: values.selectedTags.map((tag) => tag.name),
+              tags: values.selectedTags.map((tag) => tag.value),
               parent: values.parent?.name,
             },
           ]);

@@ -24,14 +24,23 @@ export default function EditorMedia({
   setMediaNotSaved,
   saveMedia,
   saveMediaError,
+  mediasProps,
 }: {
   saveMedia: (medias: Array<EditorMediasT>) => void;
   setMediaNotSaved: () => void;
   saveMediaError?: string;
+  mediasProps?: Array<MediasT>;
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [medias, setMedias] = useState<Array<EditorMediasT>>([]);
+  const [medias, setMedias] = useState<Array<EditorMediasT>>(() => {
+    if (mediasProps) {
+      return mediasProps.map((media) => {
+        return { ...media, file: undefined };
+      });
+    }
+    return [];
+  });
   const [selectedMedia, setSelectedMedia] = useState<number>();
 
   const [imageFile, setImageFile] = useState<{
