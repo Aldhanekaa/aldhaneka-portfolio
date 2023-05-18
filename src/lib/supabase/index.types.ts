@@ -49,30 +49,33 @@ export interface Database {
       journal_posts: {
         Row: {
           category: string
-          content: Json
+          content: string
           created_at: string
           desc: string
           id: string
+          related_projects: Json[] | null
           tags: string[] | null
           thumbnail: string
           title: string
         }
         Insert: {
           category: string
-          content: Json
+          content: string
           created_at?: string
           desc: string
           id: string
+          related_projects?: Json[] | null
           tags?: string[] | null
           thumbnail: string
           title: string
         }
         Update: {
           category?: string
-          content?: Json
+          content?: string
           created_at?: string
           desc?: string
           id?: string
+          related_projects?: Json[] | null
           tags?: string[] | null
           thumbnail?: string
           title?: string

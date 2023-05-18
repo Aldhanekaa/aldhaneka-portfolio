@@ -1,7 +1,7 @@
 'use client';
 import { useSupabase } from '@/app/supabase-provider';
 import ProjectCard from '@/components/projects/card';
-import { ProjectT } from '@/lib/supabase/types/index.types';
+import { JournalT, ProjectT } from '@/lib/supabase/types/index.types';
 import { MediasT } from './editor';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -62,7 +62,7 @@ export default function ProjectsDashboard({
         );
     }
   };
-  console.log(projects);
+
   return (
     <div className="w-full grid grid-cols-9 gap-5 mt-24">
       {projects?.map((project) => (

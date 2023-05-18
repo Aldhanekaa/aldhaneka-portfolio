@@ -33,6 +33,7 @@ import { lowlight } from 'lowlight';
 import Heading from '@tiptap/extension-heading';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import TiptapToolbar from './tiptapToolbar';
+import { useEffect } from 'react';
 
 lowlight.registerLanguage('html', html);
 lowlight.registerLanguage('css', css);
@@ -40,7 +41,11 @@ lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
 
 let limit = 1000;
-export default function TipTapEditor() {
+export default function TipTapEditor({
+  setContent,
+}: {
+  setContent: (e: string) => void;
+}) {
   const editor = useEditor({
     extensions: [
       HorizontalRule,
@@ -103,6 +108,12 @@ export default function TipTapEditor() {
 }</code></pre>`,
   });
 
+  useEffect(() => {
+    const editorText = editor?.getText();
+    if (editorText) {
+      setContent(editorText);
+    }
+  }, [editor?.getText()]);
   if (editor)
     return (
       <div className=" col-span-6 bg-brand-50 px-5 py-6 rounded-xl">

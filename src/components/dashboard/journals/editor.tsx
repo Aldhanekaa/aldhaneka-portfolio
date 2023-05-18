@@ -10,6 +10,7 @@ import Select from 'react-select';
 import * as Yup from 'yup';
 import EditorThumbnail from '../editorThumbnail';
 import TipTapEditor from './tiptapEditor';
+import { UploadJournal } from './uploadJournal';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -19,14 +20,14 @@ const validationSchema = Yup.object().shape({
   desc: Yup.string().min(10, 'Too Short!').required('Required'),
   category: Yup.object().required('Category is required!'),
   tags: Yup.array().required('Tags is required!'),
-  content: Yup.object().required('Content is required!'),
+  content: Yup.string().required('Content is required!'),
 
   thumbnail: Yup.string().required('Required!'),
 });
 
 export type JournalEditorT = {
   category?: OptionI;
-  content: Json;
+  content: string;
   created_at: string;
   desc: string;
   id: string;
@@ -36,12 +37,12 @@ export type JournalEditorT = {
 };
 const InitialValues: JournalEditorT = {
   category: undefined,
-  content: {},
+  content: '',
   created_at: '',
   title: '',
   desc: '',
   id: '',
-  tags: [],
+  tags: undefined,
   thumbnail: '',
 };
 
@@ -83,10 +84,64 @@ export default function JournalEditor({
     useState<string>('');
 
   const formik = useFormik({
-    initialValues: InitialValues,
+    initialValues: Object.assign(
+      { ...InitialValues },
+      journalProps && {
+        ...InitialValues,
+        ...journalProps,
+        tags:
+          journalProps.tags &&
+          journalProps.tags.map((tag) => {
+            const tagSplit = tag.split('.');
+            const name = tagSplit[1];
+
+            return {
+              name: name,
+              value: tag,
+              type: 'Tags',
+            };
+          }),
+        category: {
+          name: journalProps.category,
+          value: journalProps.category,
+          type: 'Categories',
+        },
+      }
+    ),
     validationSchema: validationSchema,
-    onSubmit() {},
+    async onSubmit(values, helper) {
+      setLoading(true);
+
+      try {
+        let uploadName: string = '';
+        if (thumbnailFile) {
+          uploadName = `${journalId}/${thumbnailFile.name}`;
+        } else {
+          uploadName = formik.values.thumbnail;
+        }
+        // console.log(values.thumbnail);
+
+        const response = await UploadJournal({
+          journalId: journalId,
+          thumbnailFile: thumbnailFile,
+          thumbnailName: values.thumbnail,
+          supabase: supabase,
+          previousThumbnail: previousThumbnailFileName,
+          values: values,
+          savedDB,
+        });
+
+        if (response == 'success' && savedDB == false) {
+          setPreviousThumbnailFileName(uploadName);
+          setSavedDB(true);
+        }
+      } catch {}
+
+      setLoading(false);
+    },
   });
+
+  console.log(formik.errors);
 
   return (
     <div>
@@ -142,6 +197,7 @@ export default function JournalEditor({
               formik.setFieldValue('category', e);
             }}
           />
+          {/* @ts-ignore */}
           <p className=" text-red-500">{formik.errors.category}</p>
         </div>
         <div className="col-span-3 flex flex-col">
@@ -160,6 +216,7 @@ export default function JournalEditor({
               formik.setFieldValue('tags', e);
             }}
           />
+          {/* @ts-ignore */}
           <p className=" text-red-500">{formik.errors.tags}</p>
         </div>
         <EditorThumbnail
@@ -170,7 +227,11 @@ export default function JournalEditor({
           thumbnailError={formik.errors.thumbnail}
         />
 
-        <TipTapEditor />
+        <TipTapEditor
+          setContent={(e: string) => {
+            formik.setFieldValue('content', e);
+          }}
+        />
         <button
           type="submit"
           className="col-span-6 bg-brand-100 rounded-lg py-2 text-brand-300"
