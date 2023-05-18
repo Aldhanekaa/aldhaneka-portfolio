@@ -30,5 +30,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('postcss-nesting'), require('@tailwindcss/typography')],
 };

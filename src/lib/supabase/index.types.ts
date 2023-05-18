@@ -35,52 +35,61 @@ export interface Database {
       journal_categories: {
         Row: {
           category_name: string
+          id: number
         }
         Insert: {
           category_name: string
+          id?: number
         }
         Update: {
           category_name?: string
+          id?: number
         }
       }
-      journal_tags: {
-        Row: {
-          tag_name: string
-        }
-        Insert: {
-          tag_name: string
-        }
-        Update: {
-          tag_name?: string
-        }
-      }
-      "journal-posts": {
+      journal_posts: {
         Row: {
           category: string
           content: Json
           created_at: string
-          post_id: number
-          tags: string[]
-          thumbnail: string | null
+          desc: string
+          id: string
+          tags: string[] | null
+          thumbnail: string
           title: string
         }
         Insert: {
-          category?: string
+          category: string
           content: Json
           created_at?: string
-          post_id?: number
-          tags: string[]
-          thumbnail?: string | null
+          desc: string
+          id: string
+          tags?: string[] | null
+          thumbnail: string
           title: string
         }
         Update: {
           category?: string
           content?: Json
           created_at?: string
-          post_id?: number
-          tags?: string[]
-          thumbnail?: string | null
+          desc?: string
+          id?: string
+          tags?: string[] | null
+          thumbnail?: string
           title?: string
+        }
+      }
+      journal_tags: {
+        Row: {
+          id: number
+          tag_name: string
+        }
+        Insert: {
+          id?: number
+          tag_name: string
+        }
+        Update: {
+          id?: number
+          tag_name?: string
         }
       }
       project_categories: {

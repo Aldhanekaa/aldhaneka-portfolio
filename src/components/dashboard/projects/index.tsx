@@ -15,9 +15,6 @@ export default function ProjectsDashboard({
   const { supabase } = useSupabase();
   const deleteProject = async (projectParam: ProjectT) => {
     let deleteFiles: string[] = [];
-    // console.log(projectParam);
-
-    console.log('DETE', projectParam, projectParam.medias);
 
     if (projectParam.thumbnail) {
       let thumbnailFileName = projectParam.thumbnail.replace(

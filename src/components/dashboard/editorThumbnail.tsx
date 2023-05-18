@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-export default function ProjectEditorThumbnail({
+export default function EditorThumbnail({
   thumbnailError,
   projectId,
   setThumbnailFile,

@@ -6,13 +6,13 @@ import { OptionI } from './CTAs/relations.types';
 
 import Select from 'react-select';
 import EditorMedia, { EditorMediasT } from './editorMedia';
-import ProjectEditorThumbnail from './editorThumbnailEditor';
 import { useSupabase } from '@/app/supabase-provider';
 import { useState } from 'react';
 import generateRandomStr from '@/lib/generateRandomStr';
 import { UploadProject } from './uploadProject';
 import { UploadMedias } from './uploadMedias';
 import LinksEditor from './linksEditor';
+import EditorThumbnail from '../editorThumbnail';
 
 const formatOption = (data: OptionI) => (
   <div className="">
@@ -95,6 +95,7 @@ export default function ProjectEditor({
   tags: readonly OptionI[];
   categories: readonly OptionI[];
 }) {
+  const [loading, setLoading] = useState(false);
   // console.log(projectProps);
   const [projectId] = useState(() => {
     if (projectProps?.id) {
@@ -146,15 +147,8 @@ export default function ProjectEditor({
     ),
     validationSchema: validationSchema,
     async onSubmit(values, formikHelpers) {
+      setLoading(true);
       if (values.tags) {
-        // console.log(
-        //   'CATEGORY',
-        //   medias,
-        //   thumbnailFile,
-        //   values.category?.name,
-        //   projectId
-        // );
-
         const mediasReady = await UploadMedias({
           supabase: supabase,
           projectId: projectId,
@@ -170,7 +164,7 @@ export default function ProjectEditor({
           } else {
             uploadName = formik.values.thumbnail;
           }
-          console.log(values.thumbnail);
+          // console.log(values.thumbnail);
 
           const response = await UploadProject({
             projectId: projectId,
@@ -188,20 +182,8 @@ export default function ProjectEditor({
             setSavedDB(true);
           }
         } catch {}
-
-        // const { data, error } = await supabase.from('projects').insert([
-        //   {
-        //     id: projectId,
-        //     title: values.title,
-        //     desc: values.desc,
-        //     tags: values.tags.map((tag) => tag.value),
-        //     completed_at: values.completed_at,
-        //     category: values.category?.value,
-        //   },
-        // ]);
-
-        // console.log(data, error);
       }
+      setLoading(false);
     },
   });
 
@@ -329,7 +311,7 @@ export default function ProjectEditor({
           setMediaNotSaved={setMediaNotSaved}
           saveMediaError={formik.errors.saveMedia}
         />
-        <ProjectEditorThumbnail
+        <EditorThumbnail
           thumbnailSrc={formik.values.thumbnail}
           setThumbnailFile={setThumbnailFile}
           setThumbnailName={formik.setFieldValue}
@@ -346,7 +328,7 @@ export default function ProjectEditor({
           type="submit"
           className="col-span-6 bg-brand-100 rounded-lg py-2 text-brand-300"
         >
-          Add
+          {loading ? 'Loading..' : savedDB ? 'Modify!' : 'Add'}
         </button>
       </form>
     </div>

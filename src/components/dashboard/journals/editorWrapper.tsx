@@ -1,18 +1,17 @@
 'use client';
 import { useEffect, useState } from 'react';
-import ProjectEditor from './editor';
-import { OptionI } from './CTAs/relations.types';
-import { ProjectT } from '@/lib/supabase/types/index.types';
+import JournalEditor from './editor';
+import { JournalT, ProjectT } from '@/lib/supabase/types/index.types';
+import { OptionI } from '../projects/CTAs/relations.types';
 
-export default function ProjectEditorWrapper({
+export default function JournalEditorWrapper({
   categoriesProps,
   tagsProps,
-  projectProps,
+  journalProps,
 }: {
-  projectProps?: ProjectT | null;
+  journalProps?: JournalT | null;
   tagsProps:
     | {
-        desc: string | null;
         id: number;
         tag_name: string;
       }[]
@@ -59,8 +58,8 @@ export default function ProjectEditorWrapper({
   }, []);
 
   return (
-    <ProjectEditor
-      projectProps={projectProps}
+    <JournalEditor
+      journalProps={journalProps}
       tags={projectProperties?.tags}
       categories={projectProperties?.categories}
     />
