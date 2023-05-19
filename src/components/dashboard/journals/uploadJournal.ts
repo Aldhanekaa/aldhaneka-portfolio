@@ -60,6 +60,8 @@ export async function UploadJournal({
           thumbnail: thumbnail_src,
 
           category: values.category?.value,
+
+          // @ts-ignore
           content: values.content,
         })
         .eq('id', journalId);
@@ -75,6 +77,7 @@ export async function UploadJournal({
             thumbnail: thumbnail_src,
 
             category: values.category?.value,
+            // @ts-ignore
             content: values.content,
           },
         ]);
