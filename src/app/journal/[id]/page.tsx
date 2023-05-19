@@ -20,3 +20,4 @@ export default async function JournalPage({
 
   return <div>not found</div>;
 }
+export const revalidate = 5; // revalidate this segment every 60 seconds

@@ -14,7 +14,7 @@ export type MinimalJournalT = {
 };
 export type JournalT = {
   category: string;
-  content: string;
+  content: Json;
   created_at: string;
   desc: string;
   home_pin: boolean;
@@ -75,7 +75,13 @@ export interface Database {
   public: {
     Tables: {
       certificates: {
-        Row: CertificatesT;
+        Row: {
+          desc: string;
+          id: number;
+          img_src: string;
+          received_at: string;
+          title: string;
+        };
         Insert: {
           desc: string;
           id?: number;
@@ -105,6 +111,44 @@ export interface Database {
           id?: number;
         };
       };
+      journal_posts: {
+        Row: {
+          category: string;
+          content: Json;
+          created_at: string;
+          desc: string;
+          home_pin: boolean;
+          id: string;
+          related_projects: Json[] | null;
+          tags: string[] | null;
+          thumbnail: string;
+          title: string;
+        };
+        Insert: {
+          category: string;
+          content: Json;
+          created_at?: string;
+          desc: string;
+          home_pin?: boolean;
+          id: string;
+          related_projects?: Json[] | null;
+          tags?: string[] | null;
+          thumbnail: string;
+          title: string;
+        };
+        Update: {
+          category?: string;
+          content?: Json;
+          created_at?: string;
+          desc?: string;
+          home_pin?: boolean;
+          id?: string;
+          related_projects?: Json[] | null;
+          tags?: string[] | null;
+          thumbnail?: string;
+          title?: string;
+        };
+      };
       journal_tags: {
         Row: {
           id: number;
@@ -117,44 +161,6 @@ export interface Database {
         Update: {
           id?: number;
           tag_name?: string;
-        };
-      };
-      journal_posts: {
-        Row: {
-          category: string;
-          content: string;
-          created_at: string;
-          desc: string;
-          home_pin: boolean;
-          id: string;
-          related_projects: Json[] | null;
-          tags: string[] | null;
-          thumbnail: string;
-          title: string;
-        };
-        Insert: {
-          category: string;
-          content: string;
-          created_at?: string;
-          desc: string;
-          home_pin?: boolean;
-          id: string;
-          related_projects?: Json[] | null;
-          tags?: string[] | null;
-          thumbnail: string;
-          title: string;
-        };
-        Update: {
-          category?: string;
-          content?: string;
-          created_at?: string;
-          desc?: string;
-          home_pin?: boolean;
-          id?: string;
-          related_projects?: Json[] | null;
-          tags?: string[] | null;
-          thumbnail?: string;
-          title?: string;
         };
       };
       project_categories: {

@@ -49,7 +49,7 @@ export interface Database {
       journal_posts: {
         Row: {
           category: string
-          content: string
+          content: Json
           created_at: string
           desc: string
           home_pin: boolean
@@ -61,7 +61,7 @@ export interface Database {
         }
         Insert: {
           category: string
-          content: string
+          content: Json
           created_at?: string
           desc: string
           home_pin?: boolean
@@ -73,7 +73,7 @@ export interface Database {
         }
         Update: {
           category?: string
-          content?: string
+          content?: Json
           created_at?: string
           desc?: string
           home_pin?: boolean

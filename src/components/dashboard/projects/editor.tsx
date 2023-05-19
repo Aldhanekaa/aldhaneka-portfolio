@@ -79,7 +79,7 @@ const validationSchema = Yup.object().shape({
   completed_at: Yup.string().required('This is required!'),
   started_at: Yup.string(),
 
-  thumbnail: Yup.string().required('Required!'),
+  thumbnail: Yup.string(),
   saveMedia: Yup.boolean()
     .oneOf([true], `It's required to save!`)
     .required("It's required to save!"),

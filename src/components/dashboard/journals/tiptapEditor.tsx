@@ -12,7 +12,7 @@ import Subscript from '@tiptap/extension-subscript';
 import Link from '@tiptap/extension-link';
 import Code from '@tiptap/extension-code';
 import TextAlign from '@tiptap/extension-text-align';
-import { EditorContent, useEditor } from '@tiptap/react';
+import { EditorContent, JSONContent, useEditor } from '@tiptap/react';
 
 import Highlight from '@tiptap/extension-highlight';
 import TypographyExtension from '@tiptap/extension-typography';
@@ -39,61 +39,69 @@ lowlight.registerLanguage('html', html);
 lowlight.registerLanguage('css', css);
 lowlight.registerLanguage('js', js);
 lowlight.registerLanguage('ts', ts);
-
 let limit = 1000;
+
+export const extensions = [
+  HorizontalRule,
+
+  Heading.configure({
+    levels: [1, 2, 3, 4],
+    HTMLAttributes: {
+      class: 'tiptap-heading',
+    },
+  }),
+  BulletList,
+  ListItem,
+
+  Blockquote,
+  CharacterCount.configure({
+    limit: limit,
+  }),
+  Document,
+  Paragraph,
+  Text,
+  Image,
+  Dropcursor,
+  Gapcursor,
+
+  TypographyExtension,
+  UnderlineExtension,
+  Code,
+
+  Subscript,
+  Superscript,
+
+  Highlight,
+  Link,
+
+  History,
+  CodeBlockLowlight.configure({
+    lowlight,
+  }),
+  TextAlign.configure({
+    types: ['heading', 'paragraph'],
+  }),
+  Focus.configure({
+    className: 'has-focus',
+    mode: 'all',
+  }),
+  HardBreak,
+];
 export default function TipTapEditor({
   setContent,
+  content,
+  isEditable = true,
 }: {
-  setContent: (e: string) => void;
+  content?: JSONContent;
+  isEditable: boolean;
+  setContent?: (e: JSONContent) => void;
 }) {
   const editor = useEditor({
-    extensions: [
-      HorizontalRule,
-
-      Heading.configure({
-        levels: [1, 2, 3, 4],
-        HTMLAttributes: {
-          class: 'tiptap-heading',
-        },
-      }),
-      BulletList,
-      ListItem,
-
-      Blockquote,
-      CharacterCount.configure({
-        limit: limit,
-      }),
-      Document,
-      Paragraph,
-      Text,
-      Image,
-      Dropcursor,
-      Gapcursor,
-
-      TypographyExtension,
-      UnderlineExtension,
-      Code,
-
-      Subscript,
-      Superscript,
-
-      Highlight,
-      Link,
-
-      History,
-      CodeBlockLowlight.configure({
-        lowlight,
-      }),
-      TextAlign.configure({
-        types: ['heading', 'paragraph'],
-      }),
-      Focus.configure({
-        className: 'has-focus',
-        mode: 'all',
-      }),
-      HardBreak,
-    ],
-    content: `<p>Hello World! 🌎️</p>
+    extensions: extensions,
+    editable: isEditable,
+    content: content
+      ? content
+      : `<p>Hello World! 🌎️</p>
     
     <pre><code class="language-javascript">for (var i=1; i <= 20; i++)
 {
@@ -109,15 +117,19 @@ export default function TipTapEditor({
   });
 
   useEffect(() => {
-    const editorText = editor?.getText();
+    const editorText = editor?.getJSON();
     if (editorText) {
-      setContent(editorText);
+      if (setContent) setContent(editorText);
     }
   }, [editor?.getText()]);
   if (editor)
     return (
-      <div className=" col-span-6 bg-brand-50 px-5 py-6 rounded-xl">
-        <TiptapToolbar editor={editor} />
+      <div
+        className={`${
+          isEditable == true && 'bg-brand-50 '
+        } col-span-6 px-5 py-6 rounded-xl`}
+      >
+        {isEditable == true && <TiptapToolbar editor={editor} />}
         <EditorContent className="border-0 tiptap-renderer" editor={editor} />
         <div className="w-full flex justify-center">
           {editor.storage.characterCount.characters()}/{limit} characters

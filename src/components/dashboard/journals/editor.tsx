@@ -11,6 +11,7 @@ import * as Yup from 'yup';
 import EditorThumbnail from '../editorThumbnail';
 import TipTapEditor from './tiptapEditor';
 import { UploadJournal } from './uploadJournal';
+import { JSONContent } from '@tiptap/react';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string()
@@ -20,14 +21,14 @@ const validationSchema = Yup.object().shape({
   desc: Yup.string().min(10, 'Too Short!').required('Required'),
   category: Yup.object().required('Category is required!'),
   tags: Yup.array().required('Tags is required!'),
-  content: Yup.string().required('Content is required!'),
+  content: Yup.object().required('Content is required!'),
 
   thumbnail: Yup.string().required('Required!'),
 });
 
 export type JournalEditorT = {
   category?: OptionI;
-  content: string;
+  content: Object;
   created_at: string;
   desc: string;
   id: string;
@@ -37,7 +38,7 @@ export type JournalEditorT = {
 };
 const InitialValues: JournalEditorT = {
   category: undefined,
-  content: '',
+  content: {},
   created_at: '',
   title: '',
   desc: '',
@@ -141,7 +142,7 @@ export default function JournalEditor({
     },
   });
 
-  console.log(formik.errors);
+  console.log(formik.values);
 
   return (
     <div>
@@ -228,7 +229,10 @@ export default function JournalEditor({
         />
 
         <TipTapEditor
-          setContent={(e: string) => {
+          // @ts-ignore
+          content={journalProps?.content}
+          isEditable
+          setContent={(e: JSONContent) => {
             formik.setFieldValue('content', e);
           }}
         />
